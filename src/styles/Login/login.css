@@ -1,0 +1,55 @@
+@keyframes rotate {
+  from {
+    top: 0;
+    width: 50px;
+    height: 50px;
+    transform: scale(1.2, 0.8);
+  }
+  to {
+    transform: scale(1, 1);
+    top: -100px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+.login-container {
+  height: 150px;
+  width: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  vertical-align: middle;
+}
+
+.login-input {
+  border: none;
+  padding: 10px 20px;
+  margin-right: 10px;
+  height: 35px;
+  box-sizing: border-box;
+  width: 200px;
+  border-radius: 10px 0 0 10px;
+}
+
+.login-button {
+  width: 50px;
+  height: 35px;
+  border-radius: 0 10px 10px 0;
+  background: steelblue;
+  color: white;
+  font-weight: 600;
+  border-color: white;
+}
+
+.login-button:hover {
+  background: #12ab34;
+}
+
+.login-loader {
+  background: #12ab34;
+  position: relative;
+  border-radius: 50%;
+  animation: 1s ease-in-out infinite alternate rotate;
+}

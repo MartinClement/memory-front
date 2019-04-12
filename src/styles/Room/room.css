@@ -1,0 +1,49 @@
+@keyframes load {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(720deg);
+  }
+}
+
+.room-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.room-game {
+  display: flex;
+  flex-direction: column;
+}
+
+.room-game-line {
+  display: flex;
+  flex-direction: row;
+}
+
+.room-game-card {
+  width: 75px;
+  height: 75px;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: steelblue;
+  font-size: 0px;
+}
+
+.room-game-card.returned {
+  font-size: 32px;
+  color: yellow;
+}
+
+.room-loader {
+  width: 45px;
+  height: 45px;
+  border: 10px solid steelblue;
+  animation: 1s ease-in-out infinite alternate load;
+}
