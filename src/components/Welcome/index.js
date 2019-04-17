@@ -1,8 +1,9 @@
 import React from 'react'
-import { inject } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { Link } from 'react-router-dom'
 
 @inject('user')
+@observer
 class Welcome extends React.Component {
   render() {
     const { user } = this.props

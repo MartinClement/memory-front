@@ -7,6 +7,6 @@ import 'styles/reset.css'
 
 import * as stores from 'stores'
 
-ReactDOM.render(<App stores={stores} history={createHistory()} />, document.getElementById('app'))
+ReactDOM.render(<App stores={stores} />, document.getElementById('app'))
 
 module.hot.accept()

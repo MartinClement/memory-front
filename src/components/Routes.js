@@ -1,7 +1,9 @@
 // @flow
 
 import React from 'react'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import { Switch, Redirect } from 'react-router'
+import { inject, observer } from 'mobx-react'
 
 import Login from 'components/Login'
 import 'styles/Login/login.css'
@@ -12,20 +14,30 @@ import 'styles/Welcome/welcome.css'
 import Room from 'components/Room'
 
 const NoMatch = () => (
-  <h1 style={{ color: white, fontSize: 14, fontFamily: 'Arial, Helvetica, sans-serif' }}>
+  <h1 style={{ color: 'white', fontSize: 14, fontFamily: 'Arial, Helvetica, sans-serif' }}>
     404 Not Found
   </h1>
 )
 
+@inject('user')
+@observer
 class Routes extends React.Component<Props> {
   render() {
-    const { history } = this.props
+    const {
+      user: { uId },
+    } = this.props
+
+    console.log(uId)
 
     return (
       <Switch>
-        <Route exact path="/" render={() => <Login />} />
-        <Route path="/welcome" render={() => <Welcome />} />
-        <Route path="/room/:roomId" render={p => <Room {...p} />} />
+        <Redirect exact path="/" to="/welcome" />
+        <Route path="/login" render={() => <Login />} />
+        <Route path="/welcome" render={() => (uId ? <Welcome /> : <Redirect to="/login" />)} />
+        <Route
+          path="/room/:roomId"
+          render={p => (uId ? <Room {...p} /> : <Redirect to="/login" />)}
+        />
         <Route render={() => <NoMatch />} />
       </Switch>
     )

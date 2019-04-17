@@ -1,5 +1,5 @@
 import React from 'react'
-import { inject, Observer } from 'mobx-react'
+import { inject, observer } from 'mobx-react'
 import { withRouter } from 'react-router'
 import uniqid from 'uniqid'
 
@@ -13,7 +13,7 @@ const Card = ({ x, y, card, onClick }) => {
       className={`room-game-card ${returned ? 'returned' : ''}`}
       data-x={x}
       data-y={y}
-      onClick={e => onClick(e)}
+      onClick={onClick ? e => onClick(e) : undefined}
     >
       {card.value}
     </div>
@@ -21,10 +21,16 @@ const Card = ({ x, y, card, onClick }) => {
 }
 
 @inject('user', 'ws')
+@observer
 class Room extends React.Component {
+  constructor() {
+    super()
+    console.log('coucou')
+  }
   state = {
     connectedToRoom: false,
     game: undefined,
+    tries: 0,
   }
 
   componentDidMount = () => {
@@ -75,6 +81,8 @@ class Room extends React.Component {
 
     const { game } = this.state
 
+    console.log(game && game.checking)
+
     return (
       <div className="room-container">
         {!game ? (
@@ -84,7 +92,13 @@ class Room extends React.Component {
             {game.grid.map((lv, l) => (
               <div className="room-game-line" key={uniqid()}>
                 {lv.map((card, c) => (
-                  <Card x={l} y={c} card={card} onClick={this.handleClick} key={`${l}${c}`} />
+                  <Card
+                    x={l}
+                    y={c}
+                    card={card}
+                    onClick={!game.checking && this.handleClick}
+                    key={`${l}${c}`}
+                  />
                 ))}
               </div>
             ))}
@@ -95,4 +109,4 @@ class Room extends React.Component {
   }
 }
 
-export default withRouter(Room)
+export default Room
